@@ -1,0 +1,49 @@
+# apt packages, one per line. Comments (#) and blank lines are ignored.
+# install.sh skips anything this Ubuntu release doesn't offer and warns about it.
+
+# --- basics
+git
+gh                       # GitHub CLI: `gh auth login`, clone private repos
+curl
+wget
+ca-certificates
+gnupg
+unzip
+xz-utils
+build-essential
+fontconfig
+flatpak                  # for apps listed in packages/flatpak.txt
+
+# --- sway desktop
+sway
+swaybg
+swayidle
+swaylock
+waybar                   # top bar
+fuzzel                   # app launcher (Super+D) and the keyhints menu
+mako-notifier            # notifications
+kitty                    # main terminal
+foot                     # tiny fallback terminal (Super+Shift+Return)
+grim                     # screenshots
+slurp                    # pick a screen region for screenshots
+wl-clipboard             # wl-copy / wl-paste
+xdg-desktop-portal-wlr   # screen sharing in browsers
+xdg-desktop-portal-gtk   # file open/save dialogs
+network-manager-gnome    # nm-applet in the bar's tray
+pavucontrol              # volume mixer (click the bar's volume)
+playerctl                # media keys
+lxpolkit                 # password prompts for GUI apps
+gnome-keyring            # Claude Desktop keeps its sign-in here
+fonts-jetbrains-mono
+fonts-noto-color-emoji
+
+# --- command line
+fzf                      # Ctrl+R fuzzy history, Ctrl+T file picker
+ripgrep
+fd-find                  # aliased to `fd`
+bat                      # aliased to `bat` (Ubuntu calls it batcat)
+eza                      # nicer ls
+zoxide                   # `z proj` jumps to frequently used dirs
+jq
+btop
+tree

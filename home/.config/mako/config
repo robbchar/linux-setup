@@ -1,0 +1,16 @@
+# Mako: notifications. Options: `man 5 mako`
+# Reload after editing: makoctl reload
+
+font=JetBrainsMono Nerd Font 11
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#b4befe
+border-size=2
+border-radius=8
+padding=10
+margin=10
+default-timeout=6000
+
+[urgency=high]
+border-color=#fab387
+default-timeout=0

@@ -1,0 +1,76 @@
+/* Waybar styling. Catppuccin Mocha palette, same as the rest of the desktop. */
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 13px;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+}
+
+window#waybar {
+  background: #181825;
+  color: #cdd6f4;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  color: #6c7086;
+  background: transparent;
+}
+
+#workspaces button.focused {
+  color: #1e1e2e;
+  background: #b4befe;
+}
+
+#workspaces button.urgent {
+  color: #1e1e2e;
+  background: #f38ba8;
+}
+
+#workspaces button:hover {
+  color: #cdd6f4;
+  background: #313244;
+  box-shadow: none;
+}
+
+#mode {
+  padding: 0 10px;
+  color: #1e1e2e;
+  background: #fab387;
+}
+
+#window {
+  color: #a6adc8;
+}
+
+#custom-keys,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#clock,
+#tray {
+  padding: 0 10px;
+}
+
+#custom-keys {
+  color: #cba6f7;
+}
+
+#custom-keys:hover {
+  background: #313244;
+}
+
+#pulseaudio.muted {
+  color: #6c7086;
+}
+
+#network.disconnected {
+  color: #f38ba8;
+}
+
+#clock {
+  color: #89b4fa;
+}

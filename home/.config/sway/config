@@ -1,0 +1,224 @@
+# Sway config. Reload after editing: Super+Shift+C.  Check for errors: sway -C
+# Docs: `man 5 sway`, or https://github.com/swaywm/sway/wiki
+#
+# Press Super+/ (or click "? keys" in the bar) for a searchable list of every
+# binding below. That menu is built from this file:
+#   - a "## description" line directly above a bindsym puts it in the menu
+#   - "## [keys] description" sets the keys shown, for grouped bindings
+# Keep that convention when adding bindings.
+#
+# Mouse still works everywhere: click to focus, scroll, and hold Super while
+# dragging to move (left button) or resize (right button) windows.
+
+### Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term kitty
+set $menu fuzzel
+set $lock swaylock -f -c 1e1e2e
+
+### Look (Catppuccin Mocha, same palette as kitty/waybar/fuzzel/mako)
+font pango:JetBrainsMono Nerd Font 10
+default_border pixel 2
+default_floating_border pixel 2
+gaps inner 6
+gaps outer 2
+smart_gaps on
+smart_borders on
+
+# class                 border  bground text    indicator child_border
+client.focused          #b4befe #1e1e2e #cdd6f4 #f5c2e7   #b4befe
+client.focused_inactive #45475a #1e1e2e #a6adc8 #45475a   #45475a
+client.unfocused        #313244 #1e1e2e #6c7086 #313244   #313244
+client.urgent           #f38ba8 #1e1e2e #cdd6f4 #f38ba8   #f38ba8
+
+output * bg #1e1e2e solid_color
+
+### Input
+input type:keyboard {
+    xkb_layout us
+    repeat_delay 300
+    repeat_rate 40
+}
+
+# Coming from Windows, focus follows clicks. Set to yes to have focus follow the
+# mouse pointer instead (many tiling users like it; try it for a day).
+focus_follows_mouse no
+
+### Idle and lock: lock after 10 min, screens off after 15, lock before sleep.
+exec swayidle -w \
+    timeout 600 'swaylock -f -c 1e1e2e' \
+    timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 1e1e2e'
+
+### Background services
+exec mako
+exec nm-applet --indicator
+exec lxpolkit
+
+bar {
+    swaybar_command waybar
+}
+
+### Windows that should float instead of tile
+for_window [app_id="pavucontrol"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_type="dialog"] floating enable
+
+### Key bindings: basics
+
+## Open a terminal
+bindsym $mod+Return exec $term
+
+## Fallback terminal (if kitty won't start)
+bindsym $mod+Shift+Return exec foot
+
+## App launcher: type to search, Enter to open
+bindsym $mod+d exec $menu
+
+## Show this list of key bindings
+bindsym $mod+slash exec bash ~/.config/sway/scripts/keyhints.sh
+
+## Close the focused window
+bindsym $mod+q kill
+
+## Reload this config
+bindsym $mod+Shift+c reload
+
+## Lock the screen
+bindsym $mod+Escape exec $lock
+
+## Exit Sway (asks first)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway and end your session?' -B 'Yes, exit' 'swaymsg exit'
+
+## [Super + Left drag / Right drag] Move / resize a window with the mouse
+floating_modifier $mod normal
+
+### Moving around
+
+## [Super + Arrows / H J K L] Focus the window in that direction
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+## [Super + Shift + Arrows / H J K L] Move the window in that direction
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+### Workspaces
+
+## [Super + 1-0] Switch to workspace 1-10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+## [Super + Shift + 1-0] Send the window to workspace 1-10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+## Go back to the previous workspace
+bindsym $mod+Tab workspace back_and_forth
+
+### Layout
+
+## Next window opens beside this one (split left/right)
+bindsym $mod+b splith
+
+## Next window opens below this one (split top/bottom)
+bindsym $mod+v splitv
+
+## Tabbed layout (windows stack as tabs)
+bindsym $mod+w layout tabbed
+
+## Stacked layout (titles listed vertically)
+bindsym $mod+s layout stacking
+
+## Back to side-by-side tiling (press again to flip direction)
+bindsym $mod+e layout toggle split
+
+## Fullscreen the focused window
+bindsym $mod+f fullscreen
+
+## Float / tile the focused window
+bindsym $mod+Shift+space floating toggle
+
+## Switch focus between floating and tiled windows
+bindsym $mod+space focus mode_toggle
+
+## Select the parent container (to move or resize a group)
+bindsym $mod+a focus parent
+
+## Stash the window in the scratchpad (hidden, always one key away)
+bindsym $mod+Shift+minus move scratchpad
+
+## Show / hide the scratchpad window
+bindsym $mod+minus scratchpad show
+
+### Resizing
+
+mode "resize" {
+    bindsym Left resize shrink width 20px
+    bindsym Down resize grow height 20px
+    bindsym Up resize shrink height 20px
+    bindsym Right resize grow width 20px
+    bindsym $left resize shrink width 20px
+    bindsym $down resize grow height 20px
+    bindsym $up resize shrink height 20px
+    bindsym $right resize grow width 20px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+## Resize mode: arrows resize, Enter or Esc to finish
+bindsym $mod+r mode "resize"
+
+### Screenshots (saved to ~/Pictures and copied to the clipboard)
+
+## Screenshot a region you drag out
+bindsym Print exec bash -c 'f=~/Pictures/shot-$(date +%F-%H%M%S).png; mkdir -p ~/Pictures; grim -g "$(slurp)" "$f" && wl-copy < "$f"'
+
+## Screenshot the whole screen
+bindsym Shift+Print exec bash -c 'f=~/Pictures/shot-$(date +%F-%H%M%S).png; mkdir -p ~/Pictures; grim "$f" && wl-copy < "$f"'
+
+### Media keys (work on the lock screen too)
+
+## [Volume keys] Volume up / down / mute
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+## [Media keys] Play-pause / next / previous track
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+### Ubuntu's sway integration (systemd, D-Bus, portals). Keep this last.
+include /etc/sway/config.d/*

@@ -1,0 +1,59 @@
+// Waybar (the top bar). Reload after editing: Super+Shift+C reloads Sway, which restarts it.
+// Module docs: https://github.com/Alexays/Waybar/wiki
+// Labels are plain text on purpose; swap in Nerd Font icons later if you want them.
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 4,
+
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["custom/keys", "cpu", "memory", "pulseaudio", "network", "clock", "tray"],
+
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true
+  },
+  "sway/mode": {
+    "format": "{}"
+  },
+  "sway/window": {
+    "max-length": 70
+  },
+
+  // Clickable reminder: opens the same key bindings list as Super+/
+  "custom/keys": {
+    "format": "? keys",
+    "tooltip-format": "Show key bindings (Super+/)",
+    "on-click": "bash ~/.config/sway/scripts/keyhints.sh"
+  },
+
+  "cpu": {
+    "format": "cpu {usage}%",
+    "interval": 5
+  },
+  "memory": {
+    "format": "mem {percentage}%",
+    "interval": 10
+  },
+  "pulseaudio": {
+    "format": "vol {volume}%",
+    "format-muted": "vol muted",
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "network": {
+    "format-ethernet": "wired",
+    "format-wifi": "wifi {essid}",
+    "format-disconnected": "offline",
+    "tooltip-format": "{ifname}  {ipaddr}"
+  },
+  "clock": {
+    "format": "{:%a %b %d  %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "tray": {
+    "spacing": 8
+  }
+}
