@@ -22,6 +22,12 @@ Add to this as you notice them while using it. These drive what gets built next.
   `git bd` alias). Windows-only bits (longpaths, gitk) were dropped.
 - **npm install scripts are off** via `npm_config_ignore_scripts` in env.sh,
   not `~/.npmrc`, because npm writes auth tokens into that file.
+- **`wt` and `dev` came over from Windows** as `home/.claude/wt/wt.py` plus
+  bash functions in `worktree.sh`. The only real change is the liveness check:
+  `/proc/<pid>/stat` instead of Win32 OpenProcess, and the roster's
+  `procStart` must match the process start time there, so a recycled pid
+  doesn't count as a live session. `dev` needs yarn, which isn't installed
+  yet (see the Node version manager question below).
 - **kitty** for the terminal, with **foot** as a fallback.
 - **Catppuccin Mocha** theme everywhere. Easy to change later.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
