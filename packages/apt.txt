@@ -47,3 +47,6 @@ zoxide                   # `z proj` jumps to frequently used dirs
 jq
 btop
 tree
+rsync                    # cpv: copy with a progress bar
+pv                       # progress bar for pipes: pv big.file > dest
+progress                 # `progress -m` shows % for cp/mv/dd already running

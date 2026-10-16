@@ -20,5 +20,8 @@ alias g='git'
 alias gs='git status -sb'
 alias gl='git log --oneline --graph --decorate -20'
 
+# Copy with a progress bar (%, speed, ETA). Works for files and directories.
+alias cpv='rsync -ah --info=progress2'
+
 alias reload='exec bash'       # pick up shell config changes
 alias swayreload='swaymsg reload'

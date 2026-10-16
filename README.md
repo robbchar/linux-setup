@@ -55,7 +55,7 @@ in the address bar.
    ```bash
    sudo apt update && sudo apt install -y git gh
    gh auth login
-   gh repo clone <you>/linux-setup ~/linux-setup
+   gh repo clone robbchar/linux-setup ~/linux-setup
    cd ~/linux-setup
    ```
 3. `bash install.sh --dry-run`, read it over, then `bash install.sh`.
