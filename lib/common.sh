@@ -33,7 +33,12 @@ run() {
 have() { command -v "$1" >/dev/null 2>&1; }
 
 # True when booted from the Ubuntu live USB rather than an installed system.
-is_live_session() { grep -qw 'boot=casper' /proc/cmdline 2>/dev/null; }
+# (Newer ISOs, or Ventoy, may not pass boot=casper, but the kernel still comes
+# from /casper/ and casper still mounts / as an overlay named /cow.)
+is_live_session() {
+  grep -qE 'boot=casper|/casper/' /proc/cmdline 2>/dev/null ||
+    [[ "$(findmnt -n -o SOURCE / 2>/dev/null)" == /cow ]]
+}
 
 # True if an apt package is installed.
 # (These capture output instead of piping into `grep -q`: grep -q exits on the
