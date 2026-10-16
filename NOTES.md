@@ -30,6 +30,13 @@ Add to this as you notice them while using it. These drive what gets built next.
   writer dies of SIGPIPE (141) and the check fails. This made `pkg_available`
   call every package "not available", even ones in main. Capture the output
   and test it with `[[ ]]` instead.
+- **Live USB logs straight into Sway.** The live user has no password, so GDM
+  never shows the gear menu; it starts the session stored in AccountsService.
+  The sway-session step sets that to Sway on live sessions only. A real
+  install keeps the gear and the choice.
+- **Live detection doesn't trust `boot=casper`.** The 26.04 ISO under Ventoy
+  doesn't pass it; `is_live_session` also checks for `/casper/` in the kernel
+  path and casper's `/cow` overlay root.
 
 ## Open questions / ideas
 

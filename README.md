@@ -59,10 +59,11 @@ in the address bar.
    cd ~/linux-setup
    ```
 3. `bash install.sh --dry-run`, read it over, then `bash install.sh`.
-4. Log out. On the login screen, pick **Sway (linux-setup)** from the gear menu
-   and log in. Live sessions can be odd here. If logging out doesn't give you
-   a login screen, press Ctrl+Alt+F3, log in on the text console, and run
-   `sway-session`.
+4. Log out and click your name. The live user has no password, so the login
+   screen has no gear menu; the `sway-session` step makes **Sway (linux-setup)**
+   your default session instead, and you land straight in Sway. If logging out
+   doesn't give you a login screen, press Ctrl+Alt+F3, log in on the text
+   console, and run `sway-session`.
 5. Press **Super+/** for the key bindings.
 
 Avoid `apt upgrade` in the live session. Kernel updates in particular can break
@@ -112,6 +113,12 @@ These are the ones worth learning first:
 
 - **Sway won't start:** `journalctl --user -b | grep -i sway`, or switch to a
   text console (Ctrl+Alt+F3), log in, and run `sway-session` to see errors.
+- **Stuck at the login screen on the live USB** (Sway fails, and clicking your
+  name just tries it again): Ctrl+Alt+F3, log in as `ubuntu`, and switch the
+  default back to GNOME, then Ctrl+Alt+F1 for the login screen:
+  ```bash
+  busctl call org.freedesktop.Accounts /org/freedesktop/Accounts/User$(id -u) org.freedesktop.Accounts.User SetSession s ubuntu
+  ```
 - **Config error after an edit:** `sway -C` validates the config without
   starting anything.
 - **Bar missing:** run `waybar` in a terminal to see its error.

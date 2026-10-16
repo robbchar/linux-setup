@@ -97,6 +97,12 @@ done
 log "Done."
 if [[ "$DRY_RUN" == 1 ]]; then
   :
+elif pkg_installed sway && is_live_session; then
+  cat <<'EOF'
+
+  Next: log out and click your name; the live USB now logs straight into Sway.
+  Once you're in Sway, press Super+/ to see every key binding.
+EOF
 elif pkg_installed sway; then
   cat <<'EOF'
 
