@@ -53,7 +53,7 @@ if [[ -n "$only" ]]; then
 fi
 
 if [[ "$DRY_RUN" != 1 ]]; then
-  sudo -v || die "this needs sudo for package installs"
+  sudo -n true 2>/dev/null || sudo -v || die "this needs sudo for package installs"
 fi
 
 # --- steps ------------------------------------------------------------------
