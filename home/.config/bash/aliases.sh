@@ -9,10 +9,12 @@ command -v batcat >/dev/null && ! command -v bat >/dev/null && alias bat='batcat
 command -v fdfind >/dev/null && ! command -v fd  >/dev/null && alias fd='fdfind'
 
 if command -v eza >/dev/null; then
-  alias ls='eza --group-directories-first'
+  # Plain `ls` is a long listing, like `ls -lhp` was on Windows.
+  alias ls='eza -lh --group-directories-first'
   alias ll='eza -la --git --group-directories-first'
   alias lt='eza --tree --level=2 --group-directories-first'
 else
+  alias ls='ls -lhp --color=auto'
   alias ll='ls -alF'
 fi
 
