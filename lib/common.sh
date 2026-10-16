@@ -36,10 +36,12 @@ have() { command -v "$1" >/dev/null 2>&1; }
 is_live_session() { grep -qw 'boot=casper' /proc/cmdline 2>/dev/null; }
 
 # True if an apt package is installed.
-pkg_installed() { dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q 'install ok installed'; }
+# (These capture output instead of piping into `grep -q`: grep -q exits on the
+# first match, the writer gets SIGPIPE, and under pipefail the check fails.)
+pkg_installed() { [[ "$(dpkg-query -W -f='${Status}' "$1" 2>/dev/null)" == *'install ok installed'* ]]; }
 
 # True if apt can install the package on this release (after `apt-get update`).
-pkg_available() { apt-cache policy "$1" 2>/dev/null | grep -q 'Candidate: [^(]'; }
+pkg_available() { [[ "$(apt-cache policy "$1" 2>/dev/null)" =~ Candidate:\ [^\(] ]]; }
 
 # True if an apt source enables the universe component (deb822 .sources or one-line .list).
 universe_enabled() {

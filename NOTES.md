@@ -23,9 +23,13 @@ Add to this as you notice them while using it. These drive what gets built next.
   Nerd Font icons later; the font is already installed.
 - **Click to focus** (`focus_follows_mouse no`). Worth trying `yes` for a day.
 - **install.sh enables universe itself.** The live USB ships with only
-  main + restricted, so sway, kitty, fzf etc. had no install candidate and
-  were silently skipped. A bootstrap block now enables universe and installs
-  curl, ca-certificates and gnupg before any step runs.
+  main + restricted, so sway, kitty, fzf etc. had no install candidate. A
+  bootstrap block now enables universe and installs curl, ca-certificates and
+  gnupg before any step runs.
+- **No `cmd | grep -q` under pipefail.** grep -q exits on the first match, the
+  writer dies of SIGPIPE (141) and the check fails. This made `pkg_available`
+  call every package "not available", even ones in main. Capture the output
+  and test it with `[[ ]]` instead.
 
 ## Open questions / ideas
 

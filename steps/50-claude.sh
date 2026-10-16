@@ -43,7 +43,7 @@ fi
 
 # --- Cowork runs tasks in a local VM and needs your user in the kvm group.
 # (SVM is already on in this machine's BIOS.)
-if id -nG "$USER" | grep -qw kvm; then
+if [[ " $(id -nG "$USER") " == *" kvm "* ]]; then
   skip "$USER is already in the kvm group"
 else
   run sudo usermod -aG kvm "$USER"
