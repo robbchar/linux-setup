@@ -22,6 +22,10 @@ Add to this as you notice them while using it. These drive what gets built next.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
   Nerd Font icons later; the font is already installed.
 - **Click to focus** (`focus_follows_mouse no`). Worth trying `yes` for a day.
+- **install.sh enables universe itself.** The live USB ships with only
+  main + restricted, so sway, kitty, fzf etc. had no install candidate and
+  were silently skipped. A bootstrap block now enables universe and installs
+  curl, ca-certificates and gnupg before any step runs.
 
 ## Open questions / ideas
 

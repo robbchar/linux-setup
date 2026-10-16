@@ -56,6 +56,36 @@ if [[ "$DRY_RUN" != 1 ]]; then
   sudo -n true 2>/dev/null || sudo -v || die "this needs sudo for package installs"
 fi
 
+# --- bootstrap --------------------------------------------------------------
+# The live USB only enables main + restricted, which hides sway, kitty, fzf and
+# most of packages/apt.txt. Steps also fetch repo keys with curl and gpg.
+# Sort both out before any step runs, including under --only.
+log "bootstrap: universe repository, curl, ca-certificates, gnupg"
+apt_updated=0
+if universe_enabled; then
+  skip "universe repository is enabled"
+else
+  if ! have add-apt-repository; then
+    run sudo apt-get update -qq
+    run sudo apt-get install -y software-properties-common
+  fi
+  run sudo add-apt-repository -y universe   # also refreshes the package lists
+  ok "enabled the universe repository"
+  apt_updated=1
+fi
+
+bootstrap=()
+for pkg in curl ca-certificates gnupg; do
+  pkg_installed "$pkg" || bootstrap+=("$pkg")
+done
+if [[ ${#bootstrap[@]} -eq 0 ]]; then
+  skip "curl, ca-certificates and gnupg are installed"
+else
+  [[ $apt_updated == 1 ]] || run sudo apt-get update -qq
+  run sudo apt-get install -y "${bootstrap[@]}"
+  ok "installed: ${bootstrap[*]}"
+fi
+
 # --- steps ------------------------------------------------------------------
 for f in "$REPO_DIR"/steps/*.sh; do
   name="$(step_name "$f")"
@@ -65,10 +95,15 @@ for f in "$REPO_DIR"/steps/*.sh; do
 done
 
 log "Done."
-if [[ "$DRY_RUN" != 1 ]]; then
+if [[ "$DRY_RUN" == 1 ]]; then
+  :
+elif pkg_installed sway; then
   cat <<'EOF'
 
   Next: log out, click your name, use the gear icon to pick "Sway (linux-setup)",
   and log in. Once you're in Sway, press Super+/ to see every key binding.
 EOF
+else
+  warn "sway isn't installed, so there's no Sway session to log into yet."
+  warn "Check the packages step output above, then run: bash install.sh --only packages"
 fi

@@ -41,6 +41,12 @@ pkg_installed() { dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q 'insta
 # True if apt can install the package on this release (after `apt-get update`).
 pkg_available() { apt-cache policy "$1" 2>/dev/null | grep -q 'Candidate: [^(]'; }
 
+# True if an apt source enables the universe component (deb822 .sources or one-line .list).
+universe_enabled() {
+  grep -rqsE '^[[:space:]]*(Components:|deb[[:space:]]).*[[:space:]]universe([[:space:]]|$)' \
+    /etc/apt/sources.list /etc/apt/sources.list.d/
+}
+
 # write_root_file DEST [MODE] < content
 # Writes stdin to a root-owned file, only if the content actually changed.
 write_root_file() {
