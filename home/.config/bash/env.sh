@@ -22,3 +22,8 @@ PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
 shopt -s globstar      # ** matches nested directories
 shopt -s checkwinsize
+
+# npm/yarn: don't run package install scripts (supply-chain safety, carried over
+# from Windows). Set here rather than in ~/.npmrc, which npm writes tokens into.
+# Override once with `npm install --ignore-scripts=false`.
+export npm_config_ignore_scripts=true

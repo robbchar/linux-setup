@@ -17,6 +17,11 @@ Add to this as you notice them while using it. These drive what gets built next.
   on Ubuntu. Revisit if NVIDIA + Sway causes real problems.
 - **bash + Starship.** Ubuntu's bash is already a current 5.x release, so
   there's nothing to build.
+- **Git config lives in `home/.config/git/`**, carried over from the Windows
+  Git Bash setup (rebase autostash/autosquash, rerere, histogram diffs, the
+  `git bd` alias). Windows-only bits (longpaths, gitk) were dropped.
+- **npm install scripts are off** via `npm_config_ignore_scripts` in env.sh,
+  not `~/.npmrc`, because npm writes auth tokens into that file.
 - **kitty** for the terminal, with **foot** as a fallback.
 - **Catppuccin Mocha** theme everywhere. Easy to change later.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
@@ -41,7 +46,6 @@ Add to this as you notice them while using it. These drive what gets built next.
 ## Open questions / ideas
 
 - Node version manager: fnm, volta, or mise?
-- Git config (name, email, aliases): add `home/.config/git/config`?
 - Timekeeper app: needs a Linux build target.
 - Claude Desktop's Quick Entry hotkey needs the GlobalShortcuts portal, which
   Sway's portal doesn't provide. Possible workaround: a Sway binding that
