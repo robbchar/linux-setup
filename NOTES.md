@@ -38,11 +38,20 @@ Add to this as you notice them while using it. These drive what gets built next.
   doesn't pass it; `is_live_session` also checks for `/casper/` in the kernel
   path and casper's `/cow` overlay root.
 
+- **autotiling on by default.** New windows split the focused one along its
+  longer side, so layouts work without thinking about Super+B / Super+V first.
+  Delete `exec autotiling` in the sway config to go back to manual splits.
+- **Pointer slowed to `pointer_accel -0.5`.** The default felt far too fast.
+  Tune live with `swaymsg input type:pointer pointer_accel <n>`.
+
 ## Open questions / ideas
 
 - Node version manager: fnm, volta, or mise?
 - Git config (name, email, aliases): add `home/.config/git/config`?
 - Timekeeper app: needs a Linux build target.
+- Keyboard hints for clicking in GUI apps (links in Claude Desktop):
+  wl-kbptr or warpd. In kitty, the built-in hints (Ctrl+Shift+E for URLs,
+  Ctrl+Shift+P then F for paths) already cover the CLI.
 - Claude Desktop's Quick Entry hotkey needs the GlobalShortcuts portal, which
   Sway's portal doesn't provide. Possible workaround: a Sway binding that
   launches or focuses the app.
