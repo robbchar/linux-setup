@@ -50,7 +50,7 @@
     "tooltip-format": "{ifname}  {ipaddr}"
   },
   "clock": {
-    "format": "{:%a %b %d  %H:%M}",
+    "format": "{:%a %b %d  %I:%M %p}",
     "tooltip-format": "<tt>{calendar}</tt>"
   },
   "tray": {
