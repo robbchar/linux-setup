@@ -35,6 +35,8 @@ Add to this as you notice them while using it. These drive what gets built next.
   repo: `scripts/import-windows-claude.sh` copies them from the Windows drive.
   Memories map `C:\Users\Admin\Projects\<name>` to `~/projects/<name>`.
   Dropped from settings: Windows-path permissions, the `term-here` plugin dir.
+  Code-tab session presets come over with `scripts/import-windows-presets.sh`,
+  run with Claude Desktop quit (it rewrites that file while open).
 - **kitty** for the terminal, with **foot** as a fallback.
 - **Catppuccin Mocha** theme everywhere. Easy to change later.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
