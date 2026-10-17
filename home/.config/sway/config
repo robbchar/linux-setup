@@ -44,6 +44,17 @@ input type:keyboard {
     repeat_rate 40
 }
 
+# Mouse speed. pointer_accel runs from -1 (slowest) to 1 (fastest); 0 is the
+# libinput default. Try values live, no reload needed:
+#   swaymsg input type:pointer pointer_accel -0.7
+# then copy the one you like here. accel_profile: adaptive (the default, like
+# Windows' "Enhance pointer precision") speeds up fast flicks; flat keeps the
+# pointer moving exactly as far as the mouse, which some find easier to aim.
+input type:pointer {
+    accel_profile adaptive
+    pointer_accel -0.5
+}
+
 # Coming from Windows, focus follows clicks. Set to yes to have focus follow the
 # mouse pointer instead (many tiling users like it; try it for a day).
 focus_follows_mouse no
