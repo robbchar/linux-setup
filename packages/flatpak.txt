@@ -1,3 +1,4 @@
 # Flathub app IDs, one per line. Installed per-user (no sudo) by steps/60-apps.sh.
 md.obsidian.Obsidian
 com.mastermindzh.tidal-hifi      # unofficial TIDAL client with High/Max quality
+com.discordapp.Discord
