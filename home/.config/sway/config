@@ -194,6 +194,15 @@ bindsym $mod+space focus mode_toggle
 ## Select the parent container (to move or resize a group)
 bindsym $mod+a focus parent
 
+## Mark this window for a swap (press again to unmark)
+bindsym $mod+m mark --add --toggle _swap
+
+## Swap this window with the marked one
+bindsym $mod+Shift+m swap container with mark _swap; unmark _swap
+
+## Float this window, centered at a comfortable size
+bindsym $mod+c floating enable, resize set width 60 ppt height 70 ppt, move position center
+
 ## Stash the window in the scratchpad (hidden, always one key away)
 bindsym $mod+Shift+minus move scratchpad
 
