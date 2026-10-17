@@ -33,6 +33,7 @@ network-manager-gnome    # nm-applet in the bar's tray
 pavucontrol              # volume mixer (click the bar's volume)
 playerctl                # media keys
 lxpolkit                 # password prompts for GUI apps
+autotiling               # new windows split along their longer side
 gnome-keyring            # Claude Desktop keeps its sign-in here
 fonts-jetbrains-mono
 fonts-noto-color-emoji

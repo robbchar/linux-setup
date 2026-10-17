@@ -70,6 +70,12 @@ exec mako
 exec nm-applet --indicator
 exec lxpolkit
 
+# autotiling: each new window splits the focused one along its longer side, so
+# windows fill the screen in a sensible grid without pressing Super+B / Super+V
+# first. Those keys still work as a one-off override for the next window.
+# Delete this line to turn it off.
+exec autotiling
+
 bar {
     swaybar_command waybar
 }
