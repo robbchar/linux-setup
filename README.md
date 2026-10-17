@@ -24,6 +24,7 @@ bash install.sh --only dotfiles,sway-session
 | Shell | bash + Starship prompt, fzf, zoxide, eza, bat | `home/.config/bash/`, `home/.config/starship.toml` |
 | Apps | Claude Code + Claude Desktop, Chrome, VS Code, Obsidian, TIDAL Hi-Fi, Discord | `steps/50-claude.sh`, `steps/60-apps.sh`, `packages/` |
 | Theme | Catppuccin Mocha everywhere | the files above |
+| Timezone | America/Los_Angeles (override with `TIMEZONE=`) | `steps/15-timezone.sh` |
 
 Linear runs as a Chrome app: open linear.app in Chrome, then use the install icon
 in the address bar.
