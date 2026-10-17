@@ -1,0 +1,59 @@
+# Global git config, carried over from the Windows (Git Bash) setup.
+# Git reads this as well as ~/.gitconfig; `git config --global` still writes to
+# ~/.gitconfig if that file exists, so put lasting changes here instead.
+
+[user]
+	name = Robb Charnock
+	email = robbchar@gmail.com
+[init]
+	defaultBranch = main
+[core]
+	# Turn any stray CRLF into LF on commit; never add CRLF on checkout.
+	autocrlf = input
+	pager = less -FRX
+	# Global ignores live in ~/.config/git/ignore (git's default path).
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[help]
+	autocorrect = prompt
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[alias]
+	# git bd [main]: switch to main, pull, and delete the branch you were on.
+	bd = "!f() { \
+		current=$(git symbolic-ref --short HEAD) || exit 1; \
+		main=${1:-main}; \
+		echo \"About to: git checkout $main && git pull --ff-only && git branch -D $current\"; \
+		read -r -p \"Proceed? [y/N] \" ans; \
+		if [ \"$ans\" != \"y\" ] && [ \"$ans\" != \"Y\" ]; then \
+			echo \"Aborted\"; \
+			exit 1; \
+		fi; \
+		git checkout \"$main\" && \
+		git pull --ff-only && \
+		git branch -D \"$current\"; \
+	}; f"

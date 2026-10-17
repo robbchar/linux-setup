@@ -1,0 +1,8 @@
+# Readline config (bash and anything else using readline).
+# A ~/.inputrc replaces the system one, so pull Ubuntu's defaults in first.
+$include /etc/inputrc
+
+# Up/Down search history for lines starting with what's already typed.
+# Type `git ` then Up to step back through only your git commands.
+"\e[A": history-search-backward
+"\e[B": history-search-forward

@@ -5,7 +5,7 @@
 [[ $- == *i* ]] || return 0   # interactive shells only
 
 _ls_dir="$HOME/.config/bash"
-for _ls_f in env aliases tools; do
+for _ls_f in env aliases functions worktree tools; do
   # shellcheck disable=SC1090
   [[ -f "$_ls_dir/$_ls_f.sh" ]] && . "$_ls_dir/$_ls_f.sh"
 done

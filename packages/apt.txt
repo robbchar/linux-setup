@@ -51,3 +51,7 @@ tree
 rsync                    # cpv: copy with a progress bar
 pv                       # progress bar for pipes: pv big.file > dest
 progress                 # `progress -m` shows % for cp/mv/dd already running
+
+# --- Claude Code hooks (home/.claude/settings.json)
+libnotify-bin            # notify-send: "Claude Code needs your attention"
+sound-theme-freedesktop  # sound played on permission prompts

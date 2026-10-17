@@ -17,6 +17,26 @@ Add to this as you notice them while using it. These drive what gets built next.
   on Ubuntu. Revisit if NVIDIA + Sway causes real problems.
 - **bash + Starship.** Ubuntu's bash is already a current 5.x release, so
   there's nothing to build.
+- **Git config lives in `home/.config/git/`**, carried over from the Windows
+  Git Bash setup (rebase autostash/autosquash, rerere, histogram diffs, the
+  `git bd` alias). Windows-only bits (longpaths, gitk) were dropped.
+- **npm install scripts are off** via `npm_config_ignore_scripts` in env.sh,
+  not `~/.npmrc`, because npm writes auth tokens into that file.
+- **`wt` and `dev` came over from Windows** as `home/.claude/wt/wt.py` plus
+  bash functions in `worktree.sh`. The only real change is the liveness check:
+  `/proc/<pid>/stat` instead of Win32 OpenProcess, and the roster's
+  `procStart` must match the process start time there, so a recycled pid
+  doesn't count as a live session. `dev` needs yarn, which isn't installed
+  yet (see the Node version manager question below).
+- **Claude Code config is split public/private.** Shareable parts (global
+  CLAUDE.md, agents, commands, skills, hooks, statusline, settings.json) live
+  in `home/.claude/`. The `you` and `linear-issues` skills (personal and client
+  details), project memories, and the Context7 key never enter this public
+  repo: `scripts/import-windows-claude.sh` copies them from the Windows drive.
+  Memories map `C:\Users\Admin\Projects\<name>` to `~/projects/<name>`.
+  Dropped from settings: Windows-path permissions, the `term-here` plugin dir.
+  Code-tab session presets come over with `scripts/import-windows-presets.sh`,
+  run with Claude Desktop quit (it rewrites that file while open).
 - **kitty** for the terminal, with **foot** as a fallback.
 - **Catppuccin Mocha** theme everywhere. Easy to change later.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
@@ -47,7 +67,6 @@ Add to this as you notice them while using it. These drive what gets built next.
 ## Open questions / ideas
 
 - Node version manager: fnm, volta, or mise?
-- Git config (name, email, aliases): add `home/.config/git/config`?
 - Timekeeper app: needs a Linux build target.
 - Keyboard hints for clicking in GUI apps (links in Claude Desktop):
   wl-kbptr or warpd. In kitty, the built-in hints (Ctrl+Shift+E for URLs,
