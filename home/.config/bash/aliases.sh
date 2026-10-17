@@ -2,7 +2,15 @@
 # shellcheck shell=bash
 
 alias ..='cd ..'
+alias cd..='cd ..'             # typo
 alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias -- -='cd -'              # back to the previous directory
+
+# Say what was moved or copied.
+alias mv='mv -v'
+alias cp='cp -v'
 
 # Ubuntu installs these under different names to avoid clashes.
 command -v batcat >/dev/null && ! command -v bat >/dev/null && alias bat='batcat'
@@ -21,6 +29,11 @@ fi
 alias g='git'
 alias gs='git status -sb'
 alias gl='git log --oneline --graph --decorate -20'
+alias push='git push'
+# gr: jump to the root of the current repo.
+alias gr='cd "$(git rev-parse --show-toplevel)"'
+# main: check out main, or master if that's what the repo uses.
+alias main='git checkout "$(git branch --format "%(refname:short)" --sort=-committerdate --list main master | head -n1)"'
 
 # Copy with a progress bar (%, speed, ETA). Works for files and directories.
 alias cpv='rsync -ah --info=progress2'
