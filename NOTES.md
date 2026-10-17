@@ -41,6 +41,8 @@ Add to this as you notice them while using it. These drive what gets built next.
 - **Ctrl+C / Ctrl+V copy and paste in kitty**, Windows-style. Ctrl+C still
   interrupts when nothing is selected; Ctrl+V no longer does literal-insert.
 - **Catppuccin Mocha** theme everywhere. Easy to change later.
+- **Slate blue background** (`#424e75`), off-palette on purpose. Solid color
+  for now; a wallpaper image is still on the wishlist.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
   Nerd Font icons later; the font is already installed.
 - **Click to focus** (`focus_follows_mouse no`). Worth trying `yes` for a day.
