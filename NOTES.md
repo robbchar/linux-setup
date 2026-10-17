@@ -38,6 +38,8 @@ Add to this as you notice them while using it. These drive what gets built next.
   Code-tab session presets come over with `scripts/import-windows-presets.sh`,
   run with Claude Desktop quit (it rewrites that file while open).
 - **kitty** for the terminal, with **foot** as a fallback.
+- **Ctrl+C / Ctrl+V copy and paste in kitty**, Windows-style. Ctrl+C still
+  interrupts when nothing is selected; Ctrl+V no longer does literal-insert.
 - **Catppuccin Mocha** theme everywhere. Easy to change later.
 - **Plain-text bar labels** ("cpu 12%") instead of icon glyphs. Can switch to
   Nerd Font icons later; the font is already installed.
