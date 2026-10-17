@@ -22,7 +22,7 @@ bash install.sh --only dotfiles,sway-session
 | Notifications | mako | `home/.config/mako/config` |
 | Terminal | kitty (foot as fallback) | `home/.config/kitty/kitty.conf` |
 | Shell | bash + Starship prompt, fzf, zoxide, eza, bat | `home/.config/bash/`, `home/.config/starship.toml` |
-| Apps | Claude Code + Claude Desktop, Chrome, VS Code, Obsidian, TIDAL Hi-Fi | `steps/50-claude.sh`, `steps/60-apps.sh`, `packages/` |
+| Apps | Claude Code + Claude Desktop, Chrome, VS Code, Obsidian, TIDAL Hi-Fi, Discord | `steps/50-claude.sh`, `steps/60-apps.sh`, `packages/` |
 | Theme | Catppuccin Mocha everywhere | the files above |
 
 Linear runs as a Chrome app: open linear.app in Chrome, then use the install icon
@@ -66,6 +66,21 @@ in the address bar.
    console, and run `sway-session`.
 5. Press **Super+/** for the key bindings.
 
+### Pulling in changes
+
+After editing the repo somewhere else and pushing:
+
+```bash
+cd ~/linux-setup && git pull
+bash install.sh      # installs anything new in packages/ (asks for your password)
+swaymsg reload       # or Super+Shift+C: applies sway config changes
+```
+
+Config edits apply right away because `home/` is symlinked; only new packages
+need `install.sh`. New `exec` lines in the sway config (like `exec autotiling`)
+only run at login, so start one now with `swaymsg exec autotiling`, or log
+out and back in.
+
 Avoid `apt upgrade` in the live session. Kernel updates in particular can break
 the persistence overlay. Treat the stick as the place to build config, not as
 your daily OS, and push to GitHub often.
@@ -95,6 +110,41 @@ These are the ones worth learning first:
 | Super+F | Fullscreen |
 | Super+W / Super+E | Tabbed / back to tiled |
 | Super+drag | Move a window with the mouse (right-drag resizes) |
+
+### Arranging windows
+
+Sway keeps the windows on each workspace in a tree. Every group of windows has
+its own layout: side by side, top to bottom, tabbed, or stacked (titles listed
+vertically). Groups can sit inside groups, so a side-by-side pair can have a
+tabbed column on its right. With autotiling on, each new window splits the
+focused one along its longer side, so most of the time you just open things
+and they land somewhere sensible.
+
+| To | Keys |
+|---|---|
+| Open the next window beside / below this one | Super+B / Super+V, then open it |
+| Turn this group into tabs / stacked titles | Super+W / Super+S |
+| Back to side by side (press again to flip direction) | Super+E |
+| Move a window | Super+Shift+Arrows. At the edge of its group it moves into the neighboring group |
+| Move a whole group | Super+A (selects the parent), then Super+Shift+Arrows |
+| Swap two windows | Super+M on one, focus the other, Super+Shift+M |
+| Resize | Super+R, then arrows; Enter or Esc when done. Or Super+right-drag |
+| Float a window (place it anywhere) | Super+Shift+Space toggles; Super+C floats it centered |
+| Move a floating window | Super+left-drag |
+| Jump focus between floating and tiled | Super+Space |
+| Hide a window, keep it one key away | Super+Shift+- stashes it, Super+- shows / hides it |
+
+- If a move sends a window somewhere unexpected, it went into a neighboring
+  group. Move it back the other way, or use Super+A first to move the group.
+- The Super+M mark doesn't show on screen; just remember which window you
+  marked. Pressing Super+M on it again clears the mark.
+- Sway can't save and restore a layout. For apps that should always land
+  somewhere, add rules next to the float rules in the sway config:
+  `assign [app_id="..."] workspace number 3`, or
+  `for_window [app_id="..."] floating enable, move position center`.
+  Run `swaymsg -t get_tree | grep -E '"(app_id|class)"'` to find an app's id.
+  Apps running through XWayland (often Electron apps like Discord) have a
+  `class` instead, so match them with `[class="..."]`.
 
 ## NVIDIA
 
